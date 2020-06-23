@@ -1,30 +1,34 @@
 {
-    "requiresCompatibilities": [
-        "FARGATE"
+    "containerDefinitions": [ 
+       { 
+          "essential": true,
+          "image": "ecs-devops-sandbox-repository:00000",
+          "logConfiguration": { 
+             "logDriver": "awslogs",
+             "options": { 
+                "awslogs-group" : "/ecs/ecs-devops-sandbox-task-definition",
+                "awslogs-region": "eu-central-1",
+                "awslogs-stream-prefix": "ecs"
+             }
+          },
+          "name": "ecs-devops-sandbox",
+          "portMappings": [ 
+             { 
+                "containerPort": 80,
+                "hostPort": 80,
+                "protocol": "tcp"
+             }
+          ]
+       }
     ],
-    "inferenceAccelerators": [],
-    "containerDefinitions": [
-        {
-            "name": "ecs-devops-sandbox",
-            "image": "ecs-devops-sandbox-repository:00000",
-            "resourceRequirements": null,
-            "essential": true,
-            "portMappings": [
-                {
-                    "containerPort": "80",
-                    "hostPort": 80, 
-                    "protocol": "tcp"
-                }
-            ]
-        }
-    ],
-    "volumes": [],
-    "networkMode": "awsvpc",
-    "assignPublicIp": "ENABLED",
+    "cpu": "256",
+    "executionRoleArn": "arn:aws:iam::012345678910:role/ecsTaskExecutionRole",
+    "family": "ecs-devops-sandbox-task-definition",
     "memory": "512",
     "cpu": "256",
-    "executionRoleArn": "arn:aws:iam::334142185887:role/ecs-devops-sandbox-execution-role",
-    "family": "ecs-devops-sandbox-task-definition",
-    "taskRoleArn": "",
-    "placementConstraints": []
-}
+    "assignPublicIp": "ENABLED",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [ 
+        "FARGATE" 
+     ]
+ }
