@@ -26,9 +26,18 @@
     "family": "ecs-devops-sandbox-task-definition",
     "memory": "512",
     "cpu": "256",
-    "assignPublicIp": true,
-    "networkMode": "host",
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": [
+                "subnet-05604fb5f843599e7"
+            ],
+            "securityGroups": [
+                "sg-0b337b4451235fbf4"
+            ],
+            "assignPublicIp": "ENABLED"
+        }
+    },
     "requiresCompatibilities": [ 
-        "FARGATE"
+        "FARGATE" 
      ]
  }
