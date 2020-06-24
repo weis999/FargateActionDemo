@@ -79,7 +79,7 @@ jobs:
       id: render-mysql-container
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+        task-definition: ${{ steps.render-wordpress-container.outputs.task-definition }}
         container-name: mysql
         image: mysql:latest
 
