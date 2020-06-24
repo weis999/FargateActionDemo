@@ -1,5 +1,7 @@
 {
     "family": "TestTask",
+    "executionRoleArn": "arn:aws:iam::334142185887:role/ecs-devops-sandbox-execution-role",
+    "taskRoleArn": "arn:aws:iam::334142185887:role/ecs-devops-sandbox-execution-role",
     "networkMode": "awsvpc",
     "containerDefinitions": [
         {
