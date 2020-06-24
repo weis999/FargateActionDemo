@@ -75,7 +75,7 @@
                 },
                 {
                     "name": "WORDPRESS_DB_HOST",
-                    "value": "mysql"
+                    "value": "localhost"
                 },
                 {
                     "name": "WORDPRESS_DB_USER",
