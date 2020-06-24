@@ -1,9 +1,9 @@
 {
-    "family": "sample-fargate",
+    "family": "TestTask",
     "networkMode": "awsvpc",
     "containerDefinitions": [
         {
-            "name": "fargate-app",
+            "name": "httpd",
             "image": "httpd:2.4",
             "portMappings": [
                 {
