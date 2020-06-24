@@ -3,10 +3,6 @@
         {
             "name": "application_wordpress",
             "host": {}
-        },
-        {
-            "name": "application_mysql",
-            "host": {}
         }
     ],
     "memory": "512",
@@ -28,27 +24,6 @@
                 }
             ],
             "essential": true,
-            "environment": [
-                {
-                    "name": "WORDPRESS_DB_NAME",
-                    "value": "db"
-                },
-                {
-                    "name": "WORDPRESS_TABLE_PREFIX",
-                    "value": "wp_"
-                },
-                {
-                    "name": "WORDPRESS_DB_HOST",
-                    "value": "db.ctzjozx43krs.us-west-1.rds.amazonaws.com"
-                },
-                {
-                    "name": "WORDPRESS_DB_USER",
-                    "value": "root"
-                },
-                {
-                    "name": "WORDPRESS_DB_PASSWORD",
-                    "value": "password"
-                }
             ],
             "mountPoints": [
                 {
