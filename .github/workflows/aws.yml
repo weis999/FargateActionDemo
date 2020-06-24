@@ -73,19 +73,14 @@ jobs:
         image: httpd:2.4
         #image: 334142185887.dkr.ecr.eu-central-1.amazonaws.com/ecs-devops-sandbox-repository:cf7cc308c22242dd860bfa0f232e6e2bdf20ded1
         #image: ${{ steps.build-image.outputs.image }}
-        run: aws ecs register-task-definition --region us-west-1 --cli-input-json ${{ steps.task-def.outputs.task-definition }}
-
-    - name: TaskNetworkConfiguration in the Amazon ECS task definition
-      id: task-definition-network
-      with:
-        task-definition: TaskNetworkConfiguration-Frankfurt.json
+        #run: aws ecs register-task-definition --region us-west-1 --cli-input-json ${{ steps.task-def.outputs.task-definition }}
 
     # deployen van de task met daarbij de behorende service en cluster
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        #task-definition: ${{ steps.task-def.outputs.task-definition }}
-        #service: TestTask
-        #cluster: TestCluster
-        run: aws ecs run-task --task-definition TestTask --cluster TestCluster --launch-type FARGATE --network-configuration ${{ steps.task-definition-netwerk.outputs.task-definition }}
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: TestTask
+        cluster: default
+        #run: aws ecs run-task --task-definition TestTask --cluster TestCluster --launch-type FARGATE --network-configuration ${{ steps.task-definition-netwerk.outputs.task-definition }}
         wait-for-service-stability: true
