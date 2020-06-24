@@ -88,6 +88,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.render-mysql-container.outputs.task-definition }}
-        service: TestTask
+        service: TestTask2
         cluster: default
         wait-for-service-stability: true
