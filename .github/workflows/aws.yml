@@ -77,7 +77,6 @@ jobs:
 
     - name: TaskNetworkConfiguration in the Amazon ECS task definition
       id: task-definition-network
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: TaskNetworkConfiguration-Frankfurt.json
 
