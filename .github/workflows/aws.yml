@@ -75,19 +75,19 @@ jobs:
         #image: ${{ steps.build-image.outputs.image }}
         #run: aws ecs register-task-definition --region us-west-1 --cli-input-json ${{ steps.task-def.outputs.task-definition }}
     
-    - name: Render Amazon ECS task definition for first container
-      id: render-mysql-container
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: ${{ steps.render-wordpress-container.outputs.task-definition }}
-        container-name: mysql
-        image: mysql:latest
+    #- name: Render Amazon ECS task definition for first container
+    #  id: render-mysql-container
+    #  uses: aws-actions/amazon-ecs-render-task-definition@v1
+    #  with:
+    #    task-definition: ${{ steps.render-wordpress-container.outputs.task-definition }}
+    #    container-name: mysql
+    #    image: mysql:latest
 
     # deployen van de task met daarbij de behorende service en cluster
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.render-mysql-container.outputs.task-definition }}
+        task-definition: ${{ steps.render-wordpress-container.outputs.task-definition }}
         service: TestTask
         cluster: default
         wait-for-service-stability: true
