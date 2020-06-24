@@ -24,7 +24,6 @@
                 }
             ],
             "essential": true,
-            ],
             "mountPoints": [
                 {
                     "sourceVolume": "application_wordpress",
