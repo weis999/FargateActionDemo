@@ -1,43 +1,30 @@
 {
-    "containerDefinitions": [ 
-       { 
-          "essential": true,
-          "image": "ecs-devops-sandbox-repository:00000",
-          "logConfiguration": { 
-             "logDriver": "awslogs",
-             "options": { 
-                "awslogs-group" : "/ecs/ecs-devops-sandbox-task-definition",
-                "awslogs-region": "eu-central-1",
-                "awslogs-stream-prefix": "ecs"
-             }
-          },
-          "name": "ecs-devops-sandbox",
-          "portMappings": [ 
-             { 
-                "containerPort": 80,
-                "hostPort": 80,
-                "protocol": "tcp"
-             }
-          ]
-       }
-    ],
-    "cpu": "256",
-    "executionRoleArn": "arn:aws:iam::012345678910:role/ecsTaskExecutionRole",
-    "family": "ecs-devops-sandbox-task-definition",
-    "memory": "512",
-    "cpu": "256",
-    "networkConfiguration": {
-        "awsvpcConfiguration": {
-            "subnets": [
-                "subnet-05604fb5f843599e7"
-            ],
-            "securityGroups": [
-                "sg-0b337b4451235fbf4"
-            ],
-            "assignPublicIp": "ENABLED"
+    "family": "sample-fargate", 
+    "networkMode": "awsvpc", 
+    "containerDefinitions": [
+        {
+            "name": "fargate-app", 
+            "image": "httpd:2.4", 
+            "portMappings": [
+                {
+                    "containerPort": 80, 
+                    "hostPort": 80, 
+                    "protocol": "tcp"
+                }
+            ], 
+            "essential": true, 
+            "entryPoint": [
+                "sh",
+		"-c"
+            ], 
+            "command": [
+                "/bin/sh -c \"echo '<html> <head> <title>Amazon ECS Sample App</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Amazon ECS Sample App</h1> <h2>Congratulations!</h2> <p>Your application is now running on a container in Amazon ECS.</p> </div></body></html>' >  /usr/local/apache2/htdocs/index.html && httpd-foreground\""
+            ]
         }
-    },
-    "requiresCompatibilities": [ 
-        "FARGATE" 
-     ]
- }
+    ], 
+    "requiresCompatibilities": [
+        "FARGATE"
+    ], 
+    "cpu": "256", 
+    "memory": "512"
+},
