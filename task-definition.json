@@ -48,14 +48,6 @@
                 {
                     "name": "WORDPRESS_DB_PASSWORD",
                     "value": "password"
-                },
-                {
-                    "name": "WP_HOME",
-                    "value": "http://localhost"
-                },
-                {
-                    "name": "WP_SITEURL",
-                    "value": "http://localhost"
                 }
             ],
             "mountPoints": [
