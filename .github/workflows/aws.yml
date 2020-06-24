@@ -89,5 +89,5 @@ jobs:
       with:
         task-definition: ${{ steps.render-mysql-container.outputs.task-definition }}
         service: TestTask
-        cluster: default
+        cluster: default1
         wait-for-service-stability: true
