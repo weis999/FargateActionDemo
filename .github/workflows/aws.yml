@@ -64,23 +64,30 @@ jobs:
 #        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     # opzetten van een task definition via github 
-    - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
+    - name: Render Amazon ECS task definition for first container
+      id: render-wordpress-container
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: task-definition.json
-        container-name: httpd
-        image: httpd:2.4
+        container-name: wordpress
+        image: weis999/aws_wordpress_tno:latest
         #image: 334142185887.dkr.ecr.eu-central-1.amazonaws.com/ecs-devops-sandbox-repository:cf7cc308c22242dd860bfa0f232e6e2bdf20ded1
         #image: ${{ steps.build-image.outputs.image }}
         #run: aws ecs register-task-definition --region us-west-1 --cli-input-json ${{ steps.task-def.outputs.task-definition }}
+    
+    - name: Render Amazon ECS task definition for first container
+      id: render-mysql-container
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+        container-name: mysql
+        image: mysql:latest
 
     # deployen van de task met daarbij de behorende service en cluster
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        task-definition: ${{ steps.render-mysql-container.outputs.task-definition }}
         service: TestTask
         cluster: default
-        #run: aws ecs run-task --task-definition TestTask --cluster TestCluster --launch-type FARGATE --network-configuration ${{ steps.task-definition-netwerk.outputs.task-definition }}
         wait-for-service-stability: true
