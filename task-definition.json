@@ -64,6 +64,13 @@
                 }
             ],
             "essential": true,
+            "command": [
+                "--default-authentication-plugin=mysql_native_password"
+            ],
+            "entryPoint": [
+                "mysql",
+                "-c"
+            ],
             "environment": [
                 {
                     "name": "WORDPRESS_DB_NAME",
@@ -75,7 +82,7 @@
                 },
                 {
                     "name": "WORDPRESS_DB_HOST",
-                    "value": "localhost"
+                    "value": "mysql"
                 },
                 {
                     "name": "WORDPRESS_DB_USER",
