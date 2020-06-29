@@ -1,0 +1,35 @@
+
+{
+    "AWSPolicyFormatVersion": "2015-10-01", 
+    "RecordType": "A", 
+    "Endpoints": {
+        "endpoint-Frankfurt": {
+            "Type": "value", 
+            "Value": ""
+        }, 
+        "endpoint-Oregon": {
+            "Type": "value", 
+            "Value": ""
+        }
+    }, 
+    "Rules": {
+        "rule-Geolocation": {
+            "RuleType": "geo", 
+            "Locations": [
+                {
+                    "Continent": "EU", 
+                    "EndpointReference": "endpoint-Frankfurt", 
+                    "IsDefault": false, 
+                    "EvaluateTargetHealth": true
+                }, 
+                {
+                    "Country": "*", 
+                    "EndpointReference": "endpoint-Oregon", 
+                    "IsDefault": true, 
+                    "EvaluateTargetHealth": true
+                }
+            ]
+        }
+    }, 
+    "StartRule": "rule- -Geolocation" 
+}
