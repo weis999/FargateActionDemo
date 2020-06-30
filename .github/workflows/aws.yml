@@ -22,13 +22,12 @@ jobs:
             passphrase: ${{ secrets.PASSPHRASE }}
             privateKey: ${{ secrets.PRIVATE_KEY}}
 
-    -   name: Running docker-compose
-        run: curl https://github.com/LSVH/hbo-ict-inno-s2-tno.git && \
-            cd /test/docker/src/ && \
-            docker-compose up -d
+    - name: Running containers
+      run: git clone https://github.com/LSVH/hbo-ict-inno-s2-tno.git /test && \
+                docker-compose up -f /test/docker/src up -d
             
-        env:
-          CI: true
+    env:
+      CI: true
 
 #    # AWS credentials via github secrets
 #    - name: Configure AWS credentials
