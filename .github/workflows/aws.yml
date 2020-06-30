@@ -22,6 +22,11 @@ jobs:
             passphrase: ${{ secrets.PASSPHRASE }}
             privateKey: ${{ secrets.PRIVATE_KEY}}
 
+    -   name: Running docker-compose
+        run: wget https://github.com/LSVH/hbo-ict-inno-s2-tno.git /test && \
+            cd /test/docker/src/ && \
+            docker-compose up -d
+            
         env:
           CI: true
 
