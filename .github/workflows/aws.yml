@@ -13,18 +13,25 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # AWS credentials via github secrets
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-1
+    -   name: SSH-ing into EC2 instance
+        run: apt-get install sshpass -y  && \
+            sshpass -p TNO ssh ubuntu@52.207.254.225
+            wget https://github.com/LSVH/hbo-ict-inno-s2-tno.git /test && \
+            cd /test/docker/src/ && \
+            docker-compose up -d
+
+#    # AWS credentials via github secrets
+#    - name: Configure AWS credentials
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region: us-west-1
 
     # inloggen op AWS ECR
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+#    - name: Login to Amazon ECR
+#      id: login-ecr
+#      uses: aws-actions/amazon-ecr-login@v1
 
     # het bouwen en taggen van een image
 #    - name: Build, tag, and push image to Amazon ECR
@@ -39,30 +46,31 @@ jobs:
 #        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     # opzetten van een task definition via github 
-    - name: Render Amazon ECS task definition for first container
-      id: render-wordpress-container
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: task-definition.json
-        container-name: wordpress
-        image: weis999/aws_wordpress_tno:latest
+#    - name: Render Amazon ECS task definition for first container
+#      id: render-wordpress-container
+#      uses: aws-actions/amazon-ecs-render-task-definition@v1
+#      with:
+#        task-definition: task-definition.json
+#        container-name: wordpress
+#        image: weis999/aws_wordpress_tno:latest
         #image: 334142185887.dkr.ecr.eu-central-1.amazonaws.com/ecs-devops-sandbox-repository:cf7cc308c22242dd860bfa0f232e6e2bdf20ded1
         #image: ${{ steps.build-image.outputs.image }}
         #run: aws ecs register-task-definition --region us-west-1 --cli-input-json ${{ steps.task-def.outputs.task-definition }}
     
-    - name: Render Amazon ECS task definition for first container
-      id: render-mysql-container
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: ${{ steps.render-wordpress-container.outputs.task-definition }}
-        container-name: mysql
-        image: mysql:latest
+#    - name: Render Amazon ECS task definition for first container
+#      id: render-mysql-container
+#      uses: aws-actions/amazon-ecs-render-task-definition@v1
+#      with:
+#        task-definition: ${{ steps.render-wordpress-container.outputs.task-definition }}
+#        container-name: mysql
+#        image: mysql:latest
 
     # deployen van de task met daarbij de behorende service en cluster
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: ${{ steps.render-mysql-container.outputs.task-definition }}
-        service: TestTask
-        cluster: default
-        wait-for-service-stability: true
+#    - name: Deploy Amazon ECS task definition
+#      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#      with:
+#        task-definition: ${{ steps.render-mysql-container.outputs.task-definition }}
+#        service: TestTask
+#        cluster: default
+#        wait-for-service-stability: true
+
