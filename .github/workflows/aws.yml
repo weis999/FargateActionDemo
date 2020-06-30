@@ -14,10 +14,16 @@ jobs:
       uses: actions/checkout@v2
 
     -   name: SSH-ing into EC2 instance
-        run: sshpass -p TNO ssh ubuntu@52.207.254.225
-            wget https://github.com/LSVH/hbo-ict-inno-s2-tno.git /test && \
-            cd /test/docker/src/ && \
-            docker-compose up -d
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+            command: ls -a
+            host: ${{ secrets.HOST }}
+            username: ubuntu
+            passphrase: ${{ secrets.PASSPHRASE }}
+            privateKey: ${{ secrets.PRIVATE_KEY}}
+
+        env:
+          CI: true
 
 #    # AWS credentials via github secrets
 #    - name: Configure AWS credentials
