@@ -23,7 +23,7 @@ jobs:
             privateKey: ${{ secrets.PRIVATE_KEY}}
 
     -   name: Running docker-compose
-        run: wget https://github.com/LSVH/hbo-ict-inno-s2-tno.git /test && \
+        run: curl https://github.com/LSVH/hbo-ict-inno-s2-tno.git && \
             cd /test/docker/src/ && \
             docker-compose up -d
             
